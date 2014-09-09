@@ -8,11 +8,11 @@ This config file for TravisCi is for a standard Rails project with Rspec and Sel
 One must also create a config/database.travis.yml file that has the test db information. You must make username travis or root and you can skip password Here is my setup for Mysql:
 
 ---
-  test:
-    adapter: mysql2
-    encoding: utf8
-    database: my_app_test
-    username: travis
+    test:
+      adapter: mysql2
+      encoding: utf8
+      database: my_app_test
+      username: travis
     
 ---
 
@@ -27,15 +27,15 @@ Also you'll need to add your AWS credentials to a secure section there. Adding o
 2. Log into Travis with travis login --auto (from inside of your project respository directory), for Travis Pro use command travis login --pro.
 3. Encrypt your S3 credentials using command travis encrypt AWS_S3_KEY="" AWS_S3_SECRET="" --add (be sure you add your actual credentials inside the double quotes). You can get your S3 key and secret from the file you generate in you Account settings. If you don't have that file, you can regenerate your credentials.
 
-In your .travis.yml file something like this will be added :
+In your .travis.yml file something like this will be added:
 
 ---
-env:
-  global:
-  - BUNDLE_ARCHIVE="test-bundle"
-  - AWS_S3_BUCKET="travisci-bundler-cache"
-  - RAILS_ENV=test
-  - secure: wqeqweheo3H743Iob4s8qweqwec0tcv0JGlg8JBhccCPnIiFUArqwe=
+    env:
+      global:
+      - BUNDLE_ARCHIVE="test-bundle"
+      - AWS_S3_BUCKET="travisci-bundler-cache"
+      - RAILS_ENV=test
+      - secure: wqeqweheo3H743Iob4s8qweqwec0tcv0JGlg8JBhccCPnIiFUArqwe=
 ---
 
 The first time it runs it will create the tar in your bucket and in subsequent runs it will pull the bundle file from the bucket. Works really good.
